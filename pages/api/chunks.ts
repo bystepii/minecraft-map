@@ -1,11 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
-const PROMETHEUS_URL =
-  process.env.PROMETHEUS_URL || "http://localhost:9090/api/v1/query";
+const PROMETHEUS_URL = process.env.PROMETHEUS_URL || "http://localhost:9090";
 
 async function queryPrometheus(query: string): Promise<{ metric: Chunk }[]> {
-  const res = await axios.get(`${PROMETHEUS_URL}?query=${query}`);
+  const res = await axios.get(`${PROMETHEUS_URL}/api/v1/query?query=${query}`);
   return res.data.data.result;
 }
 
